@@ -23,7 +23,7 @@
 </main>
 <script>
 const API='https://iixutuezrxjzkgjdhtlp.supabase.co/functions/v1/spinzy-api';
-const tg=window.Telegram?.WebApp;const AD_ZONE=11712470;let user=null,busy=false,wheelRotation=0,referralLink='';
+const tg=window.Telegram?.WebApp;const AD_ZONE=11712470;const TELEGRAM_BOT_USERNAME='spin_zybot';let user=null,busy=false,wheelRotation=0,referralLink='';
 const $=id=>document.getElementById(id);
 function setMsg(text,error=false){$('message').textContent=text;$('message').className='msg'+(error?' error':'')}
 function setRefMsg(text,error=false){$('refMessage').textContent=text;$('refMessage').className='msg'+(error?' error':'')}
@@ -32,7 +32,7 @@ function apply(u){if(!u)return;user=u;$('greeting').textContent=`Welcome, ${u.fi
 async function api(action,extra={}){if(!tg?.initData)throw new Error('Open Spinzy inside Telegram to continue.');const r=await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action,initData:tg.initData,...extra})});let d={};try{d=await r.json()}catch{}if(!r.ok)throw new Error(d.error||'Request failed');return d}
 async function refresh(){const d=await api('profile');apply(d.user)}
 function getUrlReferrer(){const m=new URLSearchParams(location.search).get('ref')||new URLSearchParams(location.search).get('startapp');const x=(m||'').match(/^ref_(\d+)$/)|| (m||'').match(/^(\d+)$/);return x?Number(x[1]):null}
-function buildReferralLink(){if(!user?.telegram_id)return '';return `${location.origin}${location.pathname}?ref=${encodeURIComponent(user.telegram_id)}`}
+function buildReferralLink(){if(!user?.telegram_id)return '';return `https://t.me/${TELEGRAM_BOT_USERNAME}?startapp=ref_${encodeURIComponent(user.telegram_id)}`}
 async function loadReferral(){if(!user?.telegram_id)return;referralLink=buildReferralLink();$('refLink').textContent=referralLink;try{const d=await api('referral');const r=resultObj(d)||{};$('refInvited').textContent=Number(r.invited||0);$('refSuccessful').textContent=Number(r.successful||0);$('refSpins').textContent=Number(r.spins_earned||0)}catch(e){setRefMsg('Referral stats are temporarily unavailable.',true)}}
 async function copyReferral(){if(!referralLink)return;try{await navigator.clipboard.writeText(referralLink);setRefMsg('Referral link copied!')}catch{setRefMsg('Could not copy automatically. Press and hold the link to copy it.',true)}}
 function shareReferral(){if(!referralLink)return;const shareUrl='https://t.me/share/url?url='+encodeURIComponent(referralLink)+'&text='+encodeURIComponent('Join me on Spinzy and spin to earn coins! 🎰');if(tg?.openTelegramLink)tg.openTelegramLink(shareUrl);else window.open(shareUrl,'_blank')}
