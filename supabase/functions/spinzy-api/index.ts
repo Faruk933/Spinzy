@@ -78,8 +78,9 @@ async function handlePostback(req: Request) {
   const eventType = url.searchParams.get('event_type') ?? url.searchParams.get('event') ?? '';
   const rewardEventType = url.searchParams.get('reward_event_type') ?? url.searchParams.get('value') ?? '';
   const zoneId = url.searchParams.get('zone_id') ?? url.searchParams.get('zone') ?? '';
-  if (!ymid || ymid.length > 200 || !/^impression$/.test(eventType) || rewardEventType !== 'valued') return new Response('ok', { status: 200 });
-  if (zoneId && !/^\d+$/.test(zoneId)) return new Response('ok', { status: 200 });
+  const rewardedEvent = rewardEventType === 'yes' || rewardEventType === 'valued';
+  if (!ymid || ymid.length > 200 || !/^impression$/.test(eventType) || !rewardedEvent) return new Response('ok', { status: 200 });
+  if (zoneId && zoneId !== '11712470') return new Response('ok', { status: 200 });
   const { data: pending, error: pendingError } = await supabase.from('ad_rewards').select('id,user_id,status').eq('provider','monetag').eq('external_event_id',ymid).maybeSingle();
   if (pendingError) throw pendingError;
   if (!pending) return new Response('ok', { status: 200 });
