@@ -18,9 +18,7 @@
   <div class="brand"><h1>Spinzy</h1><p>Spin. Earn. Repeat.</p></div>
   <div class="metric metric-right"><span class="metric-icon">🪙</span><div class="metric-label">Coins</div><div class="metric-value coins-value" id="coins">0</div></div>
 </div>
-
 <div id="loading" class="extra loading">Connecting securely to Telegram…</div>
-
 <div id="app" class="hidden">
   <section class="hero" id="spinSection">
     <div class="wheel-wrap">
@@ -40,18 +38,15 @@
     </div>
     <div id="message" class="message"></div>
   </section>
-
   <section class="feature-bar">
     <div class="feature"><span class="feature-icon">🎁</span><b>Spin &amp; Earn</b><span>Earn real cash<br>every spin</span></div>
     <div class="feature"><span class="feature-icon">🪙</span><b>Watch Ads</b><span>Earn coins by<br>watching ads</span></div>
     <div class="feature"><span class="feature-icon">🔄</span><b>Convert</b><span>1,000 coins<br>= 1 spin</span></div>
   </section>
-
   <section class="actions">
     <button id="adBtn" class="action secondary">📺 Watch Ad &amp; Earn Coins</button>
     <button id="convertBtn" class="action secondary">🪙 Convert 1,000 → 1 Spin</button>
   </section>
-
   <section class="extra" id="referralSection">
     <div class="label">👥 Invite Friends &amp; Earn Spins</div>
     <div class="muted">When a friend joins through your referral and completes their first free spin, you earn 1 spin.</div>
@@ -60,7 +55,6 @@
     <div class="ref-stats"><div class="ref-stat"><b id="refInvited">0</b><span>Invited</span></div><div class="ref-stat"><b id="refSuccessful">0</b><span>Successful</span></div><div class="ref-stat"><b id="refSpins">0</b><span>Spins earned</span></div></div>
     <div id="refMessage" class="message"></div>
   </section>
-
   <section class="extra" id="walletSection">
     <div class="label">💳 Cash out</div>
     <div class="muted">Minimum cashout is $3.00</div>
@@ -69,18 +63,15 @@
     <input id="destination" placeholder="Destination / account">
     <button id="cashBtn" class="action wide" style="margin-top:8px">Request Cashout</button>
   </section>
-
   <div class="footer">Your Telegram identity is verified by the Spinzy backend.</div>
 </div>
 </main>
-
 <nav class="bottom-nav">
   <button class="nav-item" data-target="spinSection"><span>⌂</span>Dashboard</button>
   <button class="nav-item active" data-target="spinSection"><span>◉</span>Spin</button>
   <button class="nav-item" data-target="referralSection"><span>👥</span>Referral</button>
   <button class="nav-item" data-target="walletSection"><span>▣</span>Wallet</button>
 </nav>
-
 <script>
 const API='https://iixutuezrxjzkgjdhtlp.supabase.co/functions/v1/spinzy-api';
 const tg=window.Telegram?.WebApp;const AD_ZONE=11712470;const TELEGRAM_BOT_USERNAME='spin_zybot';let user=null,busy=false,wheelRotation=0,referralLink='';
