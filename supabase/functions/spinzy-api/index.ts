@@ -107,8 +107,7 @@ Deno.serve(async (req) => {
       return json({ ok: true, ymid: data.external_event_id });
     }
     let result;
-    if (action === 'claim-free-spin') { const { data, error } = await supabase.rpc('spinzy_claim_free_spin', { p_user_id: user.id }); if (error) throw error; result = data; }
-    else if (action === 'convert-coins-to-spin') { const { data, error } = await supabase.rpc('spinzy_convert_coins_to_spin', { p_user_id: user.id }); if (error) throw error; result = data; }
+    if (action === 'convert-coins-to-spin') { const { data, error } = await supabase.rpc('spinzy_convert_coins_to_spin', { p_user_id: user.id }); if (error) throw error; result = data; }
     else if (action === 'spin') { const { data, error } = await supabase.rpc('spinzy_spin', { p_user_id: user.id }); if (error) throw error; result = data; }
     else if (action === 'request-cashout') { const { data, error } = await supabase.rpc('spinzy_request_cashout', { p_user_id: user.id, p_amount: Number(body.amount), p_method: String(body.method ?? ''), p_destination: String(body.destination ?? ''), p_idempotency_key: String(body.idempotencyKey ?? '') }); if (error) throw error; result = data; }
     else return json({ error: 'unknown_action' }, 400);
